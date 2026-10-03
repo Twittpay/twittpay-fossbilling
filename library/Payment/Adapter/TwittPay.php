@@ -39,12 +39,6 @@ class Payment_Adapter_TwittPay extends Payment_AdapterAbstract implements \FOSSB
             );
         }
 
-        if (empty($this->config['api_url'])) {
-            throw new Payment_Exception(
-                'The ":pay_gateway" payment gateway is not fully configured. Please configure the :missing',
-                [':pay_gateway' => 'TwittPay', ':missing' => 'Endpoint URL']
-            );
-        }
 
         if (empty($this->config['currency_rate'])) {
             $this->config['currency_rate'] = 120;
@@ -66,7 +60,7 @@ class Payment_Adapter_TwittPay extends Payment_AdapterAbstract implements \FOSSB
                 'api_url' => [
                     'text', [
                         'label'       => 'Endpoint URL:',
-                        'description' => 'Your own gateway address, for example https://checkout.twittpay.com',
+                        'description' => 'Optional. Leave empty to use the default checkout address (https://checkout.twittpay.com)',
                         'required'    => true,
                     ],
                 ],
@@ -323,7 +317,7 @@ class Payment_Adapter_TwittPay extends Payment_AdapterAbstract implements \FOSSB
      */
     private function baseUrl()
     {
-        $raw    = rtrim(trim((string) $this->config['api_url']), '/');
+        $raw    = rtrim(trim((string) ($this->config['api_url'] ?? '')), '/');
         $scheme = parse_url($raw, PHP_URL_SCHEME);
         $host   = parse_url($raw, PHP_URL_HOST);
 
