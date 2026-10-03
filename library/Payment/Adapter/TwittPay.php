@@ -57,13 +57,6 @@ class Payment_Adapter_TwittPay extends Payment_AdapterAbstract implements \FOSSB
                 'width'  => '50px',
             ],
             'form' => [
-                'api_url' => [
-                    'text', [
-                        'label'       => 'Endpoint URL:',
-                        'description' => 'Optional. Leave empty to use the default checkout address (https://checkout.twittpay.com)',
-                        'required'    => true,
-                    ],
-                ],
                 'api_key' => [
                     'text', [
                         'label'       => 'Brand Key:',
@@ -317,20 +310,7 @@ class Payment_Adapter_TwittPay extends Payment_AdapterAbstract implements \FOSSB
      */
     private function baseUrl()
     {
-        $raw    = rtrim(trim((string) ($this->config['api_url'] ?? '')), '/');
-        $scheme = parse_url($raw, PHP_URL_SCHEME);
-        $host   = parse_url($raw, PHP_URL_HOST);
-
-        if (empty($host)) {
-            $host = strtok(ltrim(preg_replace('#^[a-z]+://#i', '', $raw), '/'), '/');
-        }
-
-        if (empty($scheme)) {
-            $scheme = 'https';
-        }
-
-        if (empty($host)) { $host = 'checkout.twittpay.com'; }
-        return 'https://' . $host;
+        return 'https://checkout.twittpay.com';
     }
 
     /** One POST to the API. JSON in, array out. */

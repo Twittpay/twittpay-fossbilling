@@ -18,9 +18,6 @@
       install it.
    3. Fill in:
 
-        Endpoint URL      your own gateway address, e.g.
-                          https://checkout.twittpay.com
-                          (the API host shown on your gateway's developer page)
 
         Brand Key           from your gateway dashboard, under Brands
 
@@ -50,8 +47,6 @@
      client credit FOSSBilling records stay in the invoice's currency.
 
  WHAT TO WATCH
-   * The Endpoint URL is your API host. Pasting the whole endpoint or a trailing
-     /api is fine - only the scheme and host are used.
    * Turn on "auto redirect" in the gateway settings if you want the customer
      taken straight to the payment page with no button click.
    * Refunds are not done through the API. Refund on the gateway side, then
